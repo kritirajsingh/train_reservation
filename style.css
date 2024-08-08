@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: url('railway.jpg');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.form-box {
+    width: 90%;
+    max-width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    padding: 50px 60px 70px;
+    text-align: center;
+}
+
+.form-box h1 {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: #fff;
+    position: relative;
+}
+
+.form-box h1::after {
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background: none;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-field {
+    background: #eaeaea;
+    margin: 15px 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    max-height: 65px;
+    transition: max-height 0.5s;
+    overflow: hidden;
+}
+
+input {
+    width: 100%;
+    background: #fff;
+    border: 0;
+    outline: 0;
+    padding: 18px 15px;
+}
+
+.input-field i {
+    margin-left: 15px;
+    color: #999;
+}
+
+form p {
+    text-align: left;
+    font-size: 13px;
+    color: #fff;
+}
+
+form p a {
+    text-decoration: none;
+    color: #9ba000;
+}
+
+.btn-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-field button {
+    flex-basis: 48%;
+    background: #9ba000;
+    color: #fff;
+    height: 40px;
+    border-radius: 40px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.input-group {
+    height: 280px;
+}
+
+.btn-field button.disable {
+    background: #999;
+    color: #555;
+}
+
+/* Flash Messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 450px;
+    z-index: 1000;
+}
+
+.flash-messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.flash-messages .success {
+    background-color: #4CAF50;
+}
+
+.flash-messages .danger {
+    background-color: #f44336;
+}
+
+.flash-messages .info {
+    background-color: #2196F3;
+}
+
+.flash-messages .warning {
+    background-color: #ff9800;
+}

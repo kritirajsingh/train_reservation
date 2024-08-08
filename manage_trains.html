@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Trains</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='1114910.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        label {
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .flash {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .flash.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Manage Trains</h2>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form to Add New Train -->
+        <form id="trainForm" action="{{ url_for('manage_trains') }}" method="post">
+            <h3>Add New Train</h3>
+
+            <label for="name">Train Name:</label>
+            <input type="text" id="name" name="name" pattern="[A-Za-z\s]+" title="Train name should contain only letters and spaces." required>
+
+            <label for="number">Train Number:</label>
+            <input type="text" id="number" name="number" pattern="\d+" title="Train number should contain only digits." required>
+
+            <label for="from_destination">From Destination:</label>
+            <input type="text" id="from_destination" name="from_destination" pattern="[A-Za-z\s]+" title="Destination should contain only letters and spaces." required>
+
+            <label for="to_destination">To Destination:</label>
+            <input type="text" id="to_destination" name="to_destination" pattern="[A-Za-z\s]+" title="Destination should contain only letters and spaces." required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit" name="add_train">Add Train</button>
+        </form>
+
+        <!-- Display Existing Trains -->
+        <h3>Existing Trains</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Train Name</th>
+                    <th>Train Number</th>
+                    <th>From Destination</th>
+                    <th>To Destination</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train.name }}</td>
+                    <td>{{ train.number }}</td>
+                    <td>{{ train.from_destination }}</td>
+                    <td>{{ train.to_destination }}</td>
+                    <td>{{ train.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Flash message fade-out script -->
+    <script>
+        setTimeout(function() {
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.style.transition = 'opacity 1s ease';
+                flashMessages.style.opacity = '0';
+                setTimeout(() => flashMessages.remove(), 1000); // Remove after transition
+            }
+        }, 2000); // Adjust the time as needed
+
+        // Client-side validation
+        document.getElementById('trainForm').addEventListener('submit', function(event) {
+            const name = document.getElementById('name').value;
+            const number = document.getElementById('number').value;
+            const fromDestination = document.getElementById('from_destination').value;
+            const toDestination = document.getElementById('to_destination').value;
+
+            const namePattern = /^[A-Za-z\s]+$/;
+            const numberPattern = /^\d+$/;
+
+            if (!namePattern.test(name)) {
+                event.preventDefault();
+                alert('Train name should contain only letters and spaces.');
+            } else if (!numberPattern.test(number)) {
+                event.preventDefault();
+                alert('Train number should contain only digits.');
+            } else if (!namePattern.test(fromDestination) || !namePattern.test(toDestination)) {
+                event.preventDefault();
+                alert('Destination fields should contain only letters and spaces.');
+            }
+        });
+    </script>
+</body>
+</html>

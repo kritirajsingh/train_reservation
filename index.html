@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In And Sign Up Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/23db5a402e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign Up</h1>
+            <!-- Flash Messages -->
+            <ul class="flash-messages" id="flash-messages">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </ul>
+            <!-- Form -->
+            <form id="form" method="POST" action="/signup">
+                <div class="input-group">
+                    <div class="input-field" id="nameField">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <p>Forgot Password? <a href="#">Click Here!</a></p>
+                </div>
+                <div class="btn-field">
+                    <button type="submit" id="signupBtn">Sign Up</button>
+                    <button type="button" id="signinBtn">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let signupBtn = document.getElementById("signupBtn");
+            let signinBtn = document.getElementById("signinBtn");
+            let nameField = document.getElementById("nameField");
+            let title = document.getElementById("title");
+            let form = document.getElementById("form");
+
+            signinBtn.onclick = function() {
+                if (title.innerHTML === "Sign In") {
+                    form.submit();
+                } else {
+                    nameField.style.maxHeight = "0";
+                    title.innerHTML = "Sign In";
+                    form.action = "/signin";
+                    signupBtn.classList.remove("disable");
+                    signinBtn.classList.add("disable");
+                }
+            }
+
+            signupBtn.onclick = function() {
+                if (title.innerHTML === "Sign Up") {
+                    form.submit();
+                } else {
+                    nameField.style.maxHeight = "60px";
+                    title.innerHTML = "Sign Up";
+                    form.action = "/signup";
+                    signupBtn.classList.remove("disable");
+                    signinBtn.classList.add("disable");
+                }
+            }
+
+            // Flash messages display logic
+            setTimeout(function() {
+                const flashMessages = document.getElementById('flash-messages');
+                if (flashMessages) {
+                    flashMessages.style.transition = 'opacity 1s ease';
+                    flashMessages.style.opacity = '0';
+                    setTimeout(() => flashMessages.remove(), 1000); // Remove after transition
+                }
+            }, 2000); // Adjust the time (3000ms = 3 seconds) as needed
+        });
+    </script>
+</body>
+</html>

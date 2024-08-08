@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Website Information</h1>
+        <p>Welcome to our reservation system! Here you can find information about our services and functionalities.</p>
+        <h2>Features</h2>
+        <ul>
+            <li>User Registration and Login</li>
+            <li>Train Management</li>
+            <li>Customer Management</li>
+            <li>Payment Management</li>
+        </ul>
+        <h2>About Us</h2>
+        <p>We provide a comprehensive train reservation system to make your travel planning easier and more efficient. Our platform offers a user-friendly interface and robust backend to ensure smooth operation and a seamless user experience.</p>
+        <h2>Contact Information</h2>
+        <p>If you have any questions or need support, please contact us at:</p>
+        <ul>
+            <li>Email: support@reservation-system.com</li>
+            <li>Phone: +1 (123) 456-7890</li>
+            <li>Address: 123 Reservation St, City, Country</li>
+        </ul>
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

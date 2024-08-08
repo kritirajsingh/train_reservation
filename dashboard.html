@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/23db5a402e.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .background-image {
+            width: 100%;
+            height: auto;
+        }
+        .icon-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .icon-container .option {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        .icon-container .option a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+        }
+        .icon-container .option i {
+            font-size: 30px;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        .icon-container .option p {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .bookings-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .bookings-container h2 {
+            margin-top: 0;
+        }
+        .bookings-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .bookings-container th, .bookings-container td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .bookings-container th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <ul class="flash-messages" id="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </ul>
+    <div class="container">
+        <img src="{{ url_for('static', filename='3119351.jpg') }}" alt="Steam Engine Train" class="background-image">
+        
+        <div class="icon-container">
+            <div class="option">
+                <a href="{{ url_for('manage_customers') }}">
+                    <i class="fa-solid fa-user"></i>
+                    <p>Manage Customers</p>
+                </a>
+            </div>
+            
+            <div class="option">
+                <a href="{{ url_for('manage_trains') }}">
+                    <i class="fa-solid fa-train"></i>
+                    <p>Manage Trains</p>
+                </a>
+            </div>
+            
+            
+            <div class="option">
+                <a href="{{ url_for('manage_payment') }}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <p>Manage Payments</p>
+                </a>
+            </div>
+            
+            <div class="option">
+                <a href="{{ url_for('website_info') }}">
+                    <i class="fa-solid fa-info"></i>
+                    <p>Website Information</p>
+                </a>
+            </div>
+            
+            <div class="option">
+                <a href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <p>Logout</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Flash messages display logic
+        setTimeout(function() {
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.style.transition = 'opacity 1s ease';
+                flashMessages.style.opacity = '0';
+                setTimeout(() => flashMessages.remove(), 1000); // Remove after transition
+            }
+        }, 2000); // Adjust the time (2000ms = 2 seconds) as needed
+    </script>
+</body>
+</html>

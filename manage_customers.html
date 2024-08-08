@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Customers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='3066.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, textarea {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        input[type="text"], textarea {
+            padding: 8px;
+            font-size: 14px;
+        }
+        input[type="text"]:invalid {
+            border-color: red;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Customers</h1>
+        <form action="{{ url_for('manage_customers') }}" method="POST">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required pattern="[A-Za-z]+" title="Only letters are allowed.">
+
+            <label for="mobile_number">Mobile Number:</label>
+            <input type="text" id="mobile_number" name="mobile_number" required pattern="\d{10}" title="Mobile number should be exactly 10 digits.">
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address"></textarea>
+
+            <label for="valid_id">Valid ID Number:</label>
+            <input type="text" id="valid_id" name="valid_id" required>
+
+            <button type="submit">Add Customer</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Mobile Number</th>
+                    <th>Address</th>
+                    <th>Valid ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.first_name }}</td>
+                    <td>{{ customer.last_name }}</td>
+                    <td>{{ customer.mobile_number }}</td>
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.valid_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Flash messages display logic
+        setTimeout(function() {
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.style.transition = 'opacity 1s ease';
+                flashMessages.style.opacity = '0';
+                setTimeout(() => flashMessages.remove(), 1000); // Remove after transition
+            }
+        }, 2000); // Adjust the time (2000ms = 2 seconds) as needed
+    </script>
+</body>
+</html>

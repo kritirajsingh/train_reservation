@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/23db5a402e.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='2000.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, select {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        select {
+            padding: 8px;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Payment</h1>
+        <form action="{{ url_for('manage_payment') }}" method="POST">
+            <label for="payment_method">Select Payment Method:</label>
+            <select id="payment_method" name="payment_method" required>
+                <option value="" disabled selected>Select your option</option>
+                <option value="Credit Card"><i class="fa-regular fa-credit-card"></i> Credit Card</option>
+                <option value="UPI"><i class="fa-solid fa-rupiah-sign"></i> UPI</option>
+            </select>
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+</body>
+</html>
