@@ -92,23 +92,24 @@ def signin():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        # Check if email and password are provided
+        if not email or not password:
+            flash('Please enter both email and password.', 'danger')
+            return redirect(url_for('signin'))
+
         # Fetch the user by email
         user = User.query.filter_by(email=email).first()
 
-        if user:
-            # Check the password
-            if check_password_hash(user.password, password):
-                session['user_id'] = user.id
-                flash('Login successful!', 'success')
-                return redirect(url_for('dashboard'))  # Redirect to dashboard
-            else:
-                flash('Wrong password. Please try again.', 'danger')
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))  # Redirect to dashboard
         else:
-            flash('User not found. Please check your email.', 'danger')
-
-        return redirect(url_for('signin'))  # Redirect back to sign-in page
+            flash('Invalid email or password. Please try again.', 'danger')
+            return redirect(url_for('signin'))  # Redirect back to sign-in page
 
     return render_template('index.html')
+
 
 
 @app.route('/dashboard')
